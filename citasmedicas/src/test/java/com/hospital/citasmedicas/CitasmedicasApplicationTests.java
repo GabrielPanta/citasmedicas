@@ -26,34 +26,34 @@ import com.hospital.citasmedicas.service.PacienteService;
 @ExtendWith(MockitoExtension.class)
 class CitasmedicasApplicationTests {
 
-	private Paciente paciente;
-	
-	@Mock
-	private PacienteRepository pacienteRepository;
+    private Paciente paciente;
 
-	@InjectMocks
-	private PacienteService pacienteService;
+    @Mock
+    private PacienteRepository pacienteRepository;
 
-	@BeforeEach
+    @InjectMocks
+    private PacienteService pacienteService;
+
+    @BeforeEach
     void setUp() {
-        paciente = new Paciente(null, "Juan", "12345678", LocalDate.of(1990, 5, 10), "987654321", null);
+        paciente = new Paciente(null, "Juan", "47401107", LocalDate.of(1990, 5, 10), "987654321", null);
     }
 
-	@Test
-	void debeRegistrarPaciente(){
+    @Test
+    void debeRegistrarPaciente() {
 
-		when(pacienteRepository.save(any(Paciente.class))).thenReturn(paciente);
+        when(pacienteRepository.save(any(Paciente.class))).thenReturn(paciente);
 
-		Paciente registrado=pacienteService.registrarPaciente(paciente);
+        Paciente registrado = pacienteService.registrarPaciente(paciente);
 
-		assertNotNull(registrado);
+        assertNotNull(registrado);
 
-		assertEquals("Juan", registrado.getNombres());
+        assertEquals("Juan", registrado.getNombres());
 
-		verify(pacienteRepository,times(1)).save(paciente);
-	}
+        verify(pacienteRepository, times(1)).save(paciente);
+    }
 
-	@Test
+    @Test
     void debeListarPacientes() {
         when(pacienteRepository.findAll()).thenReturn(List.of(paciente));
 
@@ -63,7 +63,7 @@ class CitasmedicasApplicationTests {
         verify(pacienteRepository, times(1)).findAll();
     }
 
-	@Test
+    @Test
     void noDebeRegistrarPacienteSinDni() {
         paciente.setDni(null);
 

@@ -12,69 +12,65 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hospital.citasmedicas.dto.CitaMedicaDTO;
-import com.hospital.citasmedicas.dto.MedicoDto;
 import com.hospital.citasmedicas.dto.PacienteDTO;
-import com.hospital.citasmedicas.model.CitaMedica;
 import com.hospital.citasmedicas.model.Paciente;
 import com.hospital.citasmedicas.repository.PacienteRepository;
-import com.hospital.citasmedicas.service.PacienteService;
 
 @RestController
 @RequestMapping("/api/pacientes")
 public class PacienteController {
-     @Autowired
-    private PacienteService pacienteService;
 
     @Autowired
     private PacienteRepository pacienteRepository;
 
-   /*  @PostMapping("/guardar")
-    public ResponseEntity<Paciente> registrarPaciente(@RequestBody Paciente paciente) {
-
-        Paciente guardado = pacienteService.registrarPaciente(paciente);
-        return ResponseEntity.ok(guardado);
-    }*/
+    /*
+     * @PostMapping("/guardar")
+     * public ResponseEntity<Paciente> registrarPaciente(@RequestBody Paciente
+     * paciente) {
+     * 
+     * Paciente guardado = pacienteService.registrarPaciente(paciente);
+     * return ResponseEntity.ok(guardado);
+     * }
+     */
 
     @PostMapping("/guardar")
-public ResponseEntity<PacienteDTO> guardarPaciente(@RequestBody PacienteDTO pacienteDTO) {
-    Paciente paciente = new Paciente();
-    paciente.setNombres(pacienteDTO.getNombres());
-    paciente.setDni(pacienteDTO.getDni());
-    paciente.setFechaNacimiento(pacienteDTO.getFechaNacimiento());
-    paciente.setContacto(pacienteDTO.getContacto());
+    public ResponseEntity<PacienteDTO> guardarPaciente(@RequestBody PacienteDTO pacienteDTO) {
+        Paciente paciente = new Paciente();
+        paciente.setNombres(pacienteDTO.getNombres());
+        paciente.setDni(pacienteDTO.getDni());
+        paciente.setFechaNacimiento(pacienteDTO.getFechaNacimiento());
+        paciente.setContacto(pacienteDTO.getContacto());
 
-    Paciente guardado = pacienteRepository.save(paciente);
+        Paciente guardado = pacienteRepository.save(paciente);
 
-    PacienteDTO responseDTO = new PacienteDTO(
-            guardado.getId(),
-            guardado.getNombres(),
-            guardado.getDni(),
-            guardado.getFechaNacimiento(),
-            guardado.getContacto()
-    );
+        PacienteDTO responseDTO = new PacienteDTO(
+                guardado.getId(),
+                guardado.getNombres(),
+                guardado.getDni(),
+                guardado.getFechaNacimiento(),
+                guardado.getContacto());
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-}
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+    }
 
+    /*
+     * @GetMapping("/listar")
+     * public ResponseEntity<List<Paciente>> obtenerPacientes() {
+     * return ResponseEntity.ok(pacienteService.obtenerTodos());
+     * }
+     */
 
-   /*  @GetMapping("/listar")
-    public ResponseEntity<List<Paciente>> obtenerPacientes() {
-        return ResponseEntity.ok(pacienteService.obtenerTodos());
-    }*/
+    @GetMapping("listar")
+    public List<PacienteDTO> obtenerPaciente() {
+        List<Paciente> pacientes = pacienteRepository.findAll();
+        List<PacienteDTO> pacienteDTO = pacientes.stream().map(paciente -> new PacienteDTO(
+                paciente.getId(),
+                paciente.getNombres(),
+                paciente.getDni(),
+                paciente.getFechaNacimiento(),
+                paciente.getContacto())).collect(Collectors.toList());
 
-       @GetMapping("listar")
-public List<PacienteDTO> obtenerPaciente() {
-    List<Paciente> pacientes = pacienteRepository.findAll();
-    List<PacienteDTO> pacienteDTO = pacientes.stream().map(paciente -> new PacienteDTO(
-        paciente.getId(),
-        paciente.getNombres(),
-        paciente.getDni(),
-        paciente.getFechaNacimiento(),
-        paciente.getContacto()
-    )).collect(Collectors.toList());
-
-    return pacienteDTO;
-}
+        return pacienteDTO;
+    }
 
 }

@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -27,24 +28,23 @@ public class CitaMedica {
     private Long id;
    
     private LocalDate fecha;
-
  
-    private LocalTime hora;
-
+    private LocalTime hora; // Mantenemos este campo como está
     private String motivo;
  
-    private String estado ;
-
-@ManyToOne(fetch = FetchType.LAZY)
+    private String estado;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
-
     private Paciente paciente;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medico_id")
-
     private Medico medico;
-
-
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sala_id")
+    private Sala sala;
 
 }
+

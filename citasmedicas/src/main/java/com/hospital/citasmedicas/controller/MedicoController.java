@@ -147,7 +147,7 @@ public class MedicoController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-  @PutMapping("/{id}")
+  @PutMapping("/editar/{id}")
     public ResponseEntity<MedicoDto> actualizarMedico(@PathVariable Long id, @RequestBody MedicoDto medicoDTO) {
         return medicoService.buscarPorId(id)
                 .map(medicoExistente -> {
@@ -211,6 +211,7 @@ public class MedicoController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         
+         Medico.Especialidad especialidadEnum = Medico.Especialidad.valueOf(especialidad);
         Page<Medico> medicosPage = medicoService.buscarPorEspecialidad(especialidad, page, size);
         
         List<MedicoDto> medicoDTOs = medicosPage.getContent().stream()

@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.citasmedicas.dto.PacienteDTO;
 import com.hospital.citasmedicas.model.Paciente;
 import com.hospital.citasmedicas.repository.PacienteRepository;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/pacientes")
@@ -73,4 +77,35 @@ public class PacienteController {
         return pacienteDTO;
     }
 
+//Buscar por el id del Paciente
+ @GetMapping("/{id}")
+    public ResponseEntity<Paciente> buscarPorId(@PathVariable Long id) {
+        return pacienteService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    
+  @PutMapping("/editar/{id}")
+    public ResponseEntity<Paciente> actualizarPaciente(
+            @PathVariable Long id, 
+            @RequestBody Paciente paciente) {
+        paciente.setId(id);
+        try {
+            Paciente actualizado = pacienteService.actualizarPaciente(paciente);
+            return ResponseEntity.ok(actualizado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }  
+    
+     @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> eliminarPaciente(@PathVariable Long id) {
+        try {
+            pacienteService.eliminarPaciente(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

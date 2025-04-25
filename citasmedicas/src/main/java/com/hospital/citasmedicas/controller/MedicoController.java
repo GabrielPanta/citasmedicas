@@ -15,6 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.citasmedicas.dto.MedicoDto;
 import com.hospital.citasmedicas.model.Medico;
 import com.hospital.citasmedicas.repository.MedicoRepository;
+<<<<<<< HEAD
+=======
+import com.hospital.citasmedicas.service.MedicoService;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+>>>>>>> 18729228fa10f6604b4daf2439c61a10c5de6ebc
 
 @RestController
 @RequestMapping("/api/medicos")
@@ -68,5 +78,110 @@ public class MedicoController {
 
         return medicoDto;
     }
+<<<<<<< HEAD
 
+=======
+      @GetMapping("/{id}")
+    public ResponseEntity<MedicoDto> buscarPorId(@PathVariable Long id) {
+        return medicoService.buscarPorId(id)
+                .map(medico -> {
+                    MedicoDto medicoDTO = new MedicoDto(
+                            medico.getId(),
+                            medico.getNombre(),
+                            medico.getEspecialidad(),
+                            medico.getCmp()
+                    );
+                    return ResponseEntity.ok(medicoDTO);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+@GetMapping("/cmp/{cmp}")
+    public ResponseEntity<MedicoDto> buscarPorCmp(@PathVariable String cmp) {
+        return medicoService.buscarPorCmp(cmp)
+                .map(medico -> {
+                    MedicoDto medicoDTO = new MedicoDto(
+                            medico.getId(),
+                            medico.getNombre(),
+                            medico.getEspecialidad(),
+                            medico.getCmp()
+                    );
+                    return ResponseEntity.ok(medicoDTO);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<MedicoDto> actualizarMedico(
+            @PathVariable Long id, 
+            @RequestBody MedicoDto medicoDTO) {
+        
+        return medicoService.buscarPorId(id)
+                .map(medicoExistente -> {
+                    medicoExistente.setNombre(medicoDTO.getNombre());
+                    medicoExistente.setEspecialidad(medicoDTO.getEspecialidad());
+                    medicoExistente.setCmp(medicoDTO.getCmp());
+                    
+                    Medico actualizado = medicoService.actualizarMedico(medicoExistente);
+                    
+                    MedicoDto responseDTO = new MedicoDto(
+                            actualizado.getId(),
+                            actualizado.getNombre(),
+                            actualizado.getEspecialidad(),
+                            actualizado.getCmp()
+                    );
+                    
+                    return ResponseEntity.ok(responseDTO);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> eliminarMedico(@PathVariable Long id) {
+        try {
+            medicoService.eliminarMedico(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @GetMapping("/especialidad/{especialidad}")
+    public ResponseEntity<List<MedicoDto>> buscarPorEspecialidad(
+            @PathVariable String especialidad,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Page<Medico> medicosPage = medicoService.buscarPorEspecialidad(especialidad, page, size);
+        
+        List<MedicoDto> medicoDTOs = medicosPage.getContent().stream()
+                .map(medico -> new MedicoDto(
+                        medico.getId(),
+                        medico.getNombre(),
+                        medico.getEspecialidad(),
+                        medico.getCmp()
+                ))
+                .collect(Collectors.toList());
+        
+        return ResponseEntity.ok(medicoDTOs);
+    }
+     @GetMapping("/buscar")
+    public ResponseEntity<List<MedicoDto>> buscarPorNombre(
+            @RequestParam String nombre,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Page<Medico> medicosPage = medicoService.buscarPorNombre(nombre, page, size);
+        
+        List<MedicoDto> medicoDTOs = medicosPage.getContent().stream()
+                .map(medico -> new MedicoDto(
+                        medico.getId(),
+                        medico.getNombre(),
+                        medico.getEspecialidad(),
+                        medico.getCmp()
+                ))
+                .collect(Collectors.toList());
+        
+        return ResponseEntity.ok(medicoDTOs);
+    }
+>>>>>>> 18729228fa10f6604b4daf2439c61a10c5de6ebc
 }

@@ -16,50 +16,58 @@
     </form>
 
     <h2>Lista de Médicos</h2>
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Especialidad</th>
-                <th>CMP</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="m : ${medicos}">
-                <td th:text="${m.id}"></td>
-                <td th:text="${m.nombre}"></td>
-                <td th:text="${m.especialidad}"></td>
-                <td th:text="${m.cmp}"></td>
-                <td>
-                    <a th:href="@{/medicos/editar/{id}(id=${m.id})}" class="btn btn-sm btn-warning me-2">Editar</a>
-                    <a th:href="@{/medicos/eliminar/{id}(id=${m.id})}" class="btn btn-sm btn-danger">Eliminar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- Paginación -->
-    <div th:if="${totalPages > 1}" class="d-flex justify-content-center mt-3">
-        <nav>
-            <ul class="pagination">
-                <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                    <a class="page-link" th:href="@{/medicos(page=${currentPage-1}, size=${size}, buscar=${busqueda})}">Anterior</a>
-                </li>
-                <li th:each="i : ${#numbers.sequence(0, totalPages-1)}" class="page-item" th:classappend="${currentPage == i ? 'active' : ''}">
-                    <a class="page-link" th:href="@{/medicos(page=${i}, size=${size}, buscar=${busqueda})}" th:text="${i+1}"></a>
-                </li>
-                <li class="page-item" th:classappend="${currentPage+1 == totalPages ? 'disabled' : ''}">
-                    <a class="page-link" th:href="@{/medicos(page=${currentPage+1}, size=${size}, buscar=${busqueda})}">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    <a href="/medicos/nuevo" class="btn btn-success mt-3">Nuevo Médico</a>
-    <br>
-    <a href="/" class="btn btn-primary mt-3">Volver al Inicio</a>
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>DNI</th>
+            <th>Email</th>
+            <th>Especialidad</th>
+            <th>F. Graduación</th>
+            <th>F. Incorporación</th>
+            <th>CMP</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="m : ${medicos}">
+            <td th:text="${m.id}"></td>
+            <td th:text="${m.nombre}"></td>
+            <td th:text="${m.apellidos}"></td>
+            <td th:text="${m.dni}"></td>
+            <td th:text="${m.email}"></td>
+            <td th:text="${m.especialidad}"></td>
+            <td th:text="${#temporals.format(m.fechaGraduacion, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#temporals.format(m.fechaIncorporacion, 'dd/MM/yyyy')}"></td>
+            <td th:text="${m.cmp}"></td>
+            <td>
+                <a th:href="@{/medicos/editar/{id}(id=${m.id})}" class="btn btn-sm btn-warning me-2">Editar</a>
+                <a th:href="@{/medicos/eliminar/{id}(id=${m.id})}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Paginación -->
+<div th:if="${totalPages > 1}" class="d-flex justify-content-center mt-3">
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/medicos(page=${currentPage-1}, size=${size}, buscar=${busqueda})}">Anterior</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, totalPages-1)}" class="page-item" th:classappend="${currentPage == i ? 'active' : ''}">
+                <a class="page-link" th:href="@{/medicos(page=${i}, size=${size}, buscar=${busqueda})}" th:text="${i+1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage+1 == totalPages ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/medicos(page=${currentPage+1}, size=${size}, buscar=${busqueda})}">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<a href="/medicos/nuevo" class="btn btn-success mt-3">Nuevo Médico</a>
+<br>
+<a href="/" class="btn btn-primary mt-3">Volver al Inicio</a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

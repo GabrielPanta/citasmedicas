@@ -47,6 +47,7 @@ public class MedicoViewController {
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevo(Model model) {
         model.addAttribute("medico", new Medico());
+            model.addAttribute("especialidades", Medico.Especialidad.values());
         return "medicos/formulario";
     }
 
@@ -55,6 +56,7 @@ public class MedicoViewController {
         Medico medico = medicoService.buscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de médico inválido: " + id));
         model.addAttribute("medico", medico);
+           model.addAttribute("especialidades", Medico.Especialidad.values());
         return "medicos/formulario";
     }
 

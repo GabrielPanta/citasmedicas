@@ -40,46 +40,80 @@ public class PacienteController {
         return ResponseEntity.ok(guardado);
     }*/
 
-    @PostMapping("/guardar")
-public ResponseEntity<PacienteDTO> guardarPaciente(@RequestBody PacienteDTO pacienteDTO) {
-    Paciente paciente = new Paciente();
-    paciente.setNombres(pacienteDTO.getNombres());
-    paciente.setDni(pacienteDTO.getDni());
-    paciente.setFechaNacimiento(pacienteDTO.getFechaNacimiento());
-    paciente.setContacto(pacienteDTO.getContacto());
+  @PostMapping("/guardar")
+    public ResponseEntity<PacienteDTO> guardarPaciente(@RequestBody PacienteDTO pacienteDTO) {
+        Paciente paciente = new Paciente();
+        paciente.setNombre(pacienteDTO.getNombre()); 
+        
+        // Campos nuevos
+        if (pacienteDTO.getApellidos() != null) {
+            paciente.setApellidos(pacienteDTO.getApellidos());
+        }
+        if (pacienteDTO.getGenero() != null) {
+            paciente.setGenero(pacienteDTO.getGenero());
+        }
+        if (pacienteDTO.getEmail() != null) {
+            paciente.setEmail(pacienteDTO.getEmail());
+        }
+        if (pacienteDTO.getDireccion() != null) {
+            paciente.setDireccion(pacienteDTO.getDireccion());
+        }
+        
+        paciente.setDni(pacienteDTO.getDni());
+        
+        if (pacienteDTO.getTelefono() != null) {
+            paciente.setTelefono(pacienteDTO.getTelefono());
+        }
+        if (pacienteDTO.getGravedadAfeccion() != null) {
+            paciente.setGravedadAfeccion(pacienteDTO.getGravedadAfeccion());
+        }
+        
+        paciente.setFechaNacimiento(pacienteDTO.getFechaNacimiento());
+        
+        if (pacienteDTO.getFechaIngreso() != null) {
+            paciente.setFechaIngreso(pacienteDTO.getFechaIngreso());
+        }
+        
+        Paciente guardado = pacienteRepository.save(paciente);
+        
+   
+        PacienteDTO responseDTO = new PacienteDTO(
+                guardado.getId(),
+    guardado.getNombre(),
+    guardado.getApellidos(),
+    guardado.getDni(),
+    guardado.getGenero(),
+    guardado.getEmail(),
+    guardado.getDireccion(),
+    guardado.getTelefono(),
+    guardado.getGravedadAfeccion(),
+    guardado.getFechaNacimiento(),
+    guardado.getFechaIngreso()        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+    }
 
-    Paciente guardado = pacienteRepository.save(paciente);
 
-    PacienteDTO responseDTO = new PacienteDTO(
-            guardado.getId(),
-            guardado.getNombres(),
-            guardado.getDni(),
-            guardado.getFechaNacimiento(),
-            guardado.getContacto()
-    );
+ 
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-}
+  @GetMapping("listar")
+    public List<PacienteDTO> obtenerPaciente() {
+        List<Paciente> pacientes = pacienteRepository.findAll();
+        List<PacienteDTO> pacienteDTO = pacientes.stream().map(paciente -> new PacienteDTO(
+             paciente.getId(),
+    paciente.getNombre(),
+    paciente.getApellidos(),
+    paciente.getDni(),
+    paciente.getGenero(),
+    paciente.getEmail(),
+    paciente.getDireccion(),
+    paciente.getTelefono(),
+    paciente.getGravedadAfeccion(),
+    paciente.getFechaNacimiento(),
+    paciente.getFechaIngreso()
+        )).collect(Collectors.toList());
+        return pacienteDTO;
+    }
 
-
-   /*  @GetMapping("/listar")
-    public ResponseEntity<List<Paciente>> obtenerPacientes() {
-        return ResponseEntity.ok(pacienteService.obtenerTodos());
-    }*/
-
-       @GetMapping("listar")
-public List<PacienteDTO> obtenerPaciente() {
-    List<Paciente> pacientes = pacienteRepository.findAll();
-    List<PacienteDTO> pacienteDTO = pacientes.stream().map(paciente -> new PacienteDTO(
-        paciente.getId(),
-        paciente.getNombres(),
-        paciente.getDni(),
-        paciente.getFechaNacimiento(),
-        paciente.getContacto()
-    )).collect(Collectors.toList());
-
-    return pacienteDTO;
-}
 
 //Buscar por el id del Paciente
  @GetMapping("/{id}")

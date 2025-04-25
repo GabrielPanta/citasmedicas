@@ -13,5 +13,5 @@ public interface PacienteRepository extends JpaRepository <Paciente,Long>{
     Optional<Paciente> findByDni(String dni);
     
     // Búsqueda por nombre (parcial)
-    Page<Paciente> findByNombresContaining(String nombres, Pageable pageable);
+    Page<Paciente> findByNombreContaining(String nombre, Pageable pageable);
 }

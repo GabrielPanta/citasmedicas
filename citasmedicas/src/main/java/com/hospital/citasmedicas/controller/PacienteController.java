@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.citasmedicas.dto.PacienteDTO;
 import com.hospital.citasmedicas.model.Paciente;
 import com.hospital.citasmedicas.repository.PacienteRepository;
+import com.hospital.citasmedicas.service.PacienteService;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -26,7 +28,8 @@ public class PacienteController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
-
+    @Autowired
+    private PacienteService pacienteService;
     /*
      * @PostMapping("/guardar")
      * public ResponseEntity<Paciente> registrarPaciente(@RequestBody Paciente

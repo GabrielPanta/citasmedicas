@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.citasmedicas.dto.MedicoDto;
 import com.hospital.citasmedicas.model.Medico;
 import com.hospital.citasmedicas.repository.MedicoRepository;
-<<<<<<< HEAD
-=======
 import com.hospital.citasmedicas.service.MedicoService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,15 +22,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
->>>>>>> 18729228fa10f6604b4daf2439c61a10c5de6ebc
-
 @RestController
 @RequestMapping("/api/medicos")
 public class MedicoController {
 
     @Autowired
     private MedicoRepository medicoRepository;
-
+    @Autowired
+    private MedicoService medicoService;
     /*
      * @PostMapping("/guardar")
      * public ResponseEntity<Medico> registrarMedico(@RequestBody Medico medico) {
@@ -78,9 +75,7 @@ public class MedicoController {
 
         return medicoDto;
     }
-<<<<<<< HEAD
 
-=======
       @GetMapping("/{id}")
     public ResponseEntity<MedicoDto> buscarPorId(@PathVariable Long id) {
         return medicoService.buscarPorId(id)
@@ -183,5 +178,4 @@ public class MedicoController {
         
         return ResponseEntity.ok(medicoDTOs);
     }
->>>>>>> 18729228fa10f6604b4daf2439c61a10c5de6ebc
 }

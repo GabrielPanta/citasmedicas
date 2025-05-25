@@ -28,13 +28,12 @@ import java.util.ArrayList;
 @ExtendWith(MockitoExtension.class)
 class CitasmedicasApplicationTests {
 
-	private Paciente paciente;
-	
-	@Mock
-	private PacienteRepository pacienteRepository;
+    private Paciente paciente;
 
-	@InjectMocks
-	private PacienteService pacienteService;
+    @Mock
+    private PacienteRepository pacienteRepository;
+    @InjectMocks
+    private PacienteService pacienteService;
 
 	@BeforeEach
 void setUp() {
@@ -55,21 +54,23 @@ void setUp() {
 }
 
 
-	@Test
-	void debeRegistrarPaciente(){
+    @Test
+    void debeRegistrarPaciente() {
 
-		when(pacienteRepository.save(any(Paciente.class))).thenReturn(paciente);
+        when(pacienteRepository.save(any(Paciente.class))).thenReturn(paciente);
 
-		Paciente registrado=pacienteService.registrarPaciente(paciente);
+        Paciente registrado = pacienteService.registrarPaciente(paciente);
 
-		assertNotNull(registrado);
+        assertNotNull(registrado);
+
 
 		assertEquals("Juan", registrado.getNombre());
 
-		verify(pacienteRepository,times(1)).save(paciente);
-	}
 
-	@Test
+        verify(pacienteRepository, times(1)).save(paciente);
+    }
+
+    @Test
     void debeListarPacientes() {
         when(pacienteRepository.findAll()).thenReturn(List.of(paciente));
 
@@ -79,7 +80,7 @@ void setUp() {
         verify(pacienteRepository, times(1)).findAll();
     }
 
-	@Test
+    @Test
     void noDebeRegistrarPacienteSinDni() {
         paciente.setDni(null);
 

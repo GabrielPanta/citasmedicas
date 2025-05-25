@@ -12,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hospital.citasmedicas.dto.CitaMedicaDTO;
-import com.hospital.citasmedicas.dto.MedicoDto;
 import com.hospital.citasmedicas.dto.PacienteDTO;
-import com.hospital.citasmedicas.model.CitaMedica;
 import com.hospital.citasmedicas.model.Paciente;
 import com.hospital.citasmedicas.repository.PacienteRepository;
-import com.hospital.citasmedicas.service.PacienteService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -27,19 +23,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequestMapping("/api/pacientes")
 public class PacienteController {
-     @Autowired
-    private PacienteService pacienteService;
 
     @Autowired
     private PacienteRepository pacienteRepository;
 
-   /*  @PostMapping("/guardar")
-    public ResponseEntity<Paciente> registrarPaciente(@RequestBody Paciente paciente) {
-
-        Paciente guardado = pacienteService.registrarPaciente(paciente);
-        return ResponseEntity.ok(guardado);
-    }*/
-
+    /*
+     * @PostMapping("/guardar")
+     * public ResponseEntity<Paciente> registrarPaciente(@RequestBody Paciente
+     * paciente) {
+     * 
+     * Paciente guardado = pacienteService.registrarPaciente(paciente);
+     * return ResponseEntity.ok(guardado);
+     * }
+     */
   @PostMapping("/guardar")
     public ResponseEntity<PacienteDTO> guardarPaciente(@RequestBody PacienteDTO pacienteDTO) {
         Paciente paciente = new Paciente();

@@ -22,8 +22,6 @@ import com.hospital.citasmedicas.service.CitaMedicaService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
 @RestController
 @RequestMapping("/api/citasmedicas")
 public class CitaMedicaController {

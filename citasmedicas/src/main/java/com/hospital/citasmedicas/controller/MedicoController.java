@@ -22,27 +22,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @RestController
 @RequestMapping("/api/medicos")
 public class MedicoController {
-    @Autowired
-    private MedicoService medicoService;
+
     @Autowired
     private MedicoRepository medicoRepository;
 
-   /*  @PostMapping("/guardar")
-    public ResponseEntity<Medico> registrarMedico(@RequestBody Medico medico) {
-
-        Medico guardado = medicoService.registrarMedico(medico);
-        return ResponseEntity.ok(guardado);
-    }*/
+    /*
+     * @PostMapping("/guardar")
+     * public ResponseEntity<Medico> registrarMedico(@RequestBody Medico medico) {
+     * 
+     * Medico guardado = medicoService.registrarMedico(medico);
+     * return ResponseEntity.ok(guardado);
+     * }
+     */
 
     @PostMapping("/guardar")
     public ResponseEntity<MedicoDto> guardarMedico(@RequestBody MedicoDto medicoDTO) {
         Medico medico = new Medico();
         medico.setNombre(medicoDTO.getNombre());
-        
+
         // Actualizamos con campos nuevos
         if (medicoDTO.getApellidos() != null) {
             medico.setApellidos(medicoDTO.getApellidos());
@@ -82,12 +82,12 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-/*
-    @GetMapping("/listar")
-    public ResponseEntity<List<Medico>> obtenerMedicos() {
-        return ResponseEntity.ok(medicoService.obtenerTodos());
-    } */
-
+    /*
+     * @GetMapping("/listar")
+     * public ResponseEntity<List<Medico>> obtenerMedicos() {
+     * return ResponseEntity.ok(medicoService.obtenerTodos());
+     * }
+     */
 
     @GetMapping("/listar")
     public List<MedicoDto> obtenerMedicos() {
@@ -105,9 +105,8 @@ public class MedicoController {
     )).collect(Collectors.toList());
     return medicoDtos;
 }
-    
-    
-   @GetMapping("/{id}")
+        
+    @GetMapping("/{id}")
     public ResponseEntity<MedicoDto> buscarPorId(@PathVariable Long id) {
         return medicoService.buscarPorId(id)
                  .map(medico -> {
@@ -230,7 +229,6 @@ public class MedicoController {
         
         return ResponseEntity.ok(medicoDTOs);
     }
-    
     
  @GetMapping("/buscar")
     public ResponseEntity<List<MedicoDto>> buscarPorNombre(

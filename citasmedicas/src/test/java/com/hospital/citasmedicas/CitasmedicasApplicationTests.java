@@ -22,6 +22,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.hospital.citasmedicas.model.Paciente;
 import com.hospital.citasmedicas.repository.PacienteRepository;
 import com.hospital.citasmedicas.service.PacienteService;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @ExtendWith(MockitoExtension.class)
 class CitasmedicasApplicationTests {
@@ -30,14 +32,27 @@ class CitasmedicasApplicationTests {
 
     @Mock
     private PacienteRepository pacienteRepository;
-
     @InjectMocks
     private PacienteService pacienteService;
 
-    @BeforeEach
-    void setUp() {
-        paciente = new Paciente(null, "Juan", "47401107", LocalDate.of(1990, 5, 10), "987654321", null);
-    }
+	@BeforeEach
+void setUp() {
+    paciente = new Paciente(
+        null,                            
+        "Juan",                          
+        "Pérez",                         
+        "12345678",                      
+        Paciente.Genero.MASCULINO,     
+        "juan@example.com",             
+        "Av. Siempre Viva 123",         
+        "987654321",                   
+        Paciente.GravedadAfeccion.LEVE, 
+        LocalDate.of(1990, 5, 10),       
+        LocalDateTime.now(),           
+        new ArrayList<>()               
+    );
+}
+
 
     @Test
     void debeRegistrarPaciente() {
@@ -48,7 +63,9 @@ class CitasmedicasApplicationTests {
 
         assertNotNull(registrado);
 
-        assertEquals("Juan", registrado.getNombres());
+
+		assertEquals("Juan", registrado.getNombre());
+
 
         verify(pacienteRepository, times(1)).save(paciente);
     }

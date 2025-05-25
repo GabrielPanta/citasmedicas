@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Regional de Piura - Panel de Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo" th:href="@{/}">
+                <img th:src="@{/images/logo.png}" alt="Hospital Regional de Piura">
+                <h1>Hospital Regional de Piura</h1>
+            </a>
+            <nav>
+                <ul>
+                    <a th:href="@{/addcitas}" class="btn btn-primary">Nueva Cita</a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <button class="fixed-sidebar-btn" id="toggleFixedBtn">📌</button>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active"><i>🏠</i><span>Inicio</span></a></li>
+            <li><a href="#"><i>📅</i><span>Mis citas</span></a></li>
+            <li><a href="#"><i>📋</i><span>Historial médico</span></a></li>
+            <li><a href="#"><i>🧪</i><span>Resultados</span></a></li>
+            <li><a href="#"><i>💊</i><span>Medicamentos</span></a></li>
+            <li><a href="#"><i>💳</i><span>Pagos</span></a></li>
+            <li><a href="#"><i>👤</i><span>Permisos y Roles</span></a></li>
+            <li><a th:href="@{/logout}"><i>🚪</i><span>Cerrar sesión</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="dashboard-content">
+        <div class="dashboard-header">
+            <h2 class="dashboard-title">Panel de Control</h2>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Citas pendientes</h3>
+                <div class="number" >3</div>
+            </div>
+            <div class="stat-card">
+                <h3>Citas completadas</h3>
+                <div class="number" >12</div>
+            </div>
+            <div class="stat-card">
+                <h3>Resultados por ver</h3>
+                <div class="number" >2</div>
+            </div>
+        </div>
+
+        <!-- Próximas citas -->
+        <div class="card">
+            <h3>Próximas citas</h3>
+            <div class="appointments-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Especialidad</th>
+                            <th>Médico</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td>25/04/2025</td>
+                            <td>09:30</td>
+                            <td>Cardiología</td>
+                            <td>Dr. Juan Pérez</td>
+                            <td>
+                                <span>Confirmada</span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline">Detalles</button>
+                                    <button class="btn btn-sm btn-danger">Cancelar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Historial de citas -->
+        <div class="card">
+            <h3>Historial de citas recientes</h3>
+            <div class="appointments-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Especialidad</th>
+                            <th>Médico</th>
+                            <th>Diagnóstico</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td >10/04/2025</td>
+                            <td>Medicina General</td>
+                            <td>Dr. Roberto Sánchez</td>
+                            <td>Resfriado común</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-outline">Ver detalles</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">&raquo;</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleFixedBtn = document.getElementById('toggleFixedBtn');
+            let isFixed = false;
+    
+            // Botón para fijar/desfijar
+            toggleFixedBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isFixed = !isFixed;
+                
+                if(isFixed) {
+                    sidebar.classList.add('sidebar-fixed');
+                    toggleFixedBtn.textContent = '📌';
+                    toggleFixedBtn.style.backgroundColor = '#2ecc71';
+                } else {
+                    sidebar.classList.remove('sidebar-fixed');
+                    toggleFixedBtn.textContent = '📌';
+                    toggleFixedBtn.style.backgroundColor = '#3498db';
+                }
+            });
+    
+            // Elimina el hover effect cuando está fijado
+            sidebar.addEventListener('mouseenter', function() {
+                if(!isFixed) {
+                    this.style.width = '220px';
+                }
+            });
+    
+            sidebar.addEventListener('mouseleave', function() {
+                if(!isFixed) {
+                    this.style.width = '70px';
+                }
+            });
+    
+            // Para móviles (opcional)
+            const logo = document.querySelector('.logo');
+            logo.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && !isFixed) {
+                    e.preventDefault();
+                    sidebar.style.width = sidebar.style.width === '220px' ? '70px' : '220px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

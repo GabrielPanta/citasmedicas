@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Regional de Piura - Sistema de Citas Médicas</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!-- Agregar Bootstrap para estilos básicos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-light">
+        <div class="container header-container py-3">
+            <a href="#" class="logo text-decoration-none d-flex align-items-center" onclick="showPage('homepage')">
+                <img th:src="@{/images/logo.png}" alt="Hospital regional de piura" width="40" height="40">
+                <h1 class="ms-2 mb-0">Hospital Regional de Piura</h1>
+            </a>
+            <nav>
+                <ul class="list-unstyled d-flex mb-0">
+                    <li class="ms-3"><a href="/" class="text-decoration-none" onclick="showPage('homepage')">Inicio</a></li>
+                    <li class="ms-3"><a href="/addcitas" class="text-decoration-none" onclick="showPage('appointment-page')">Solicitar Cita</a></li>
+                    <li class="ms-3"><a href="/inicio_sesion" class="text-decoration-none" onclick="showPage('login-page')">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Página de inicio -->
+    <section id="homepage">
+        <div class="hero bg-primary text-white py-5">
+            <div class="container py-5">
+                <h2>Cuidando de tu salud cuando más lo necesitas</h2>
+                <p class="lead">Accede a nuestro sistema de gestión de citas médicas y recibe atención personalizada de nuestros especialistas.</p>
+                <a href="/addcitas" class="btn btn-light btn-lg" onclick="showPage('appointment-page')">Solicitar Cita</a>
+            </div>
+        </div>
+
+        <div class="container my-5">
+            <h2 class="text-center mb-4 text-primary">Nuestras Especialidades</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img th:src="@{/images/cardiologia.jpg}" class="card-img-top" alt="Cardiología">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Cardiología</h3>
+                            <p class="card-text">Diagnóstico y tratamiento de enfermedades del corazón con tecnología de vanguardia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img th:src="@{/images/pediatria.jpg}" class="card-img-top" alt="Pediatría">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Pediatría</h3>
+                            <p class="card-text">Cuidado especializado para niños y adolescentes con enfoque en prevención.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img th:src="@{/images/neurologia.jpg}" class="card-img-top" alt="Neurología">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Neurología</h3>
+                            <p class="card-text">Evaluación y tratamiento de trastornos del sistema nervioso central y periférico.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img th:src="@{/images/ortopedia.jpg}" class="card-img-top" alt="Ortopedia">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Ortopedia</h3>
+                            <p class="card-text">Especialistas en lesiones y condiciones del sistema músculo-esquelético.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img th:src="@{/images/GinecologíayObstetricia.jpg}" class="card-img-top" alt="Ginecología">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Ginecología y Obstetricia</h3>
+                            <p class="card-text">Atención integral para la salud femenina en todas las etapas de la vida.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img th:src="@{/images/Dermatología.jpg}" class="card-img-top" alt="Dermatología">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Dermatología</h3>
+                            <p class="card-text">Diagnóstico y tratamiento de enfermedades de la piel, cabello y uñas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="steps bg-light py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">¿Cómo funciona nuestro sistema de citas?</h2>
+                <div class="row text-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="p-4 bg-white rounded shadow">
+                            <div class="step-number bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">1</div>
+                            <h3>Regístrate</h3>
+                            <p>Crea tu cuenta en nuestro sistema para acceder a todos los servicios.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="p-4 bg-white rounded shadow">
+                            <div class="step-number bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">2</div>
+                            <h3>Solicita tu cita</h3>
+                            <p>Elige la especialidad, el médico y la fecha que mejor se adapte a tu disponibilidad.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="p-4 bg-white rounded shadow">
+                            <div class="step-number bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">3</div>
+                            <h3>Recibe atención</h3>
+                            <p>Asiste a tu cita y recibe atención médica de calidad por nuestros especialistas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-primary btn-lg" onclick="showPage('register-page')">Registrarme Ahora</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Lo que dicen nuestros pacientes</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class=" p-4 bg-light rounded">
+                            <p class="testimonial-text fst-italic">"El sistema de citas es muy intuitivo y fácil de usar. Me ha facilitado mucho el seguimiento de mis consultas médicas."</p>
+                            <p class="testimonial-author fw-bold">- María López</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class=" p-4 bg-light rounded">
+                            <p class="testimonial-text fst-italic">"Excelente atención y un sistema que realmente funciona. Las notificaciones de recordatorio son muy útiles."</p>
+                            <p class="testimonial-author fw-bold">- Carlos Rodríguez</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class=" p-4 bg-light rounded">
+                            <p class="testimonial-text fst-italic">"Me encanta poder ver todo mi historial de citas y recibir los resultados de mis análisis en línea."</p>
+                            <p class="testimonial-author fw-bold">- Ana Martínez</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -18,7 +18,7 @@ import com.hospital.citasmedicas.repository.CitaMedicaRepository;
 import com.hospital.citasmedicas.repository.MedicoRepository;
 import com.hospital.citasmedicas.repository.PacienteRepository;
 import com.hospital.citasmedicas.repository.SalaRepository;
-import com.hospital.citasmedicas.service.CitaMedicaService;
+//import com.hospital.citasmedicas.service.CitaMedicaService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/api/citasmedicas")
 public class CitaMedicaController {
 
-    @Autowired
-    private CitaMedicaService citaMedicaService;
+   // @Autowired
+   // private CitaMedicaService citaMedicaService;
     @Autowired
     private PacienteRepository pacienteRepository;
     @Autowired

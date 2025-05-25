@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.citasmedicas.dto.PacienteDTO;
 import com.hospital.citasmedicas.model.Paciente;
 import com.hospital.citasmedicas.repository.PacienteRepository;
+import com.hospital.citasmedicas.service.PacienteService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -26,6 +27,9 @@ public class PacienteController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+    @Autowired
+    private PacienteService pacienteService;
+
 
     /*
      * @PostMapping("/guardar")
@@ -36,11 +40,11 @@ public class PacienteController {
      * return ResponseEntity.ok(guardado);
      * }
      */
-  @PostMapping("/guardar")
+    @PostMapping("/guardar")
     public ResponseEntity<PacienteDTO> guardarPaciente(@RequestBody PacienteDTO pacienteDTO) {
         Paciente paciente = new Paciente();
-        paciente.setNombre(pacienteDTO.getNombre()); 
-        
+        paciente.setNombre(pacienteDTO.getNombre());
+
         // Campos nuevos
         if (pacienteDTO.getApellidos() != null) {
             paciente.setApellidos(pacienteDTO.getApellidos());
@@ -54,75 +58,69 @@ public class PacienteController {
         if (pacienteDTO.getDireccion() != null) {
             paciente.setDireccion(pacienteDTO.getDireccion());
         }
-        
+
         paciente.setDni(pacienteDTO.getDni());
-        
+
         if (pacienteDTO.getTelefono() != null) {
             paciente.setTelefono(pacienteDTO.getTelefono());
         }
         if (pacienteDTO.getGravedadAfeccion() != null) {
             paciente.setGravedadAfeccion(pacienteDTO.getGravedadAfeccion());
         }
-        
+
         paciente.setFechaNacimiento(pacienteDTO.getFechaNacimiento());
-        
+
         if (pacienteDTO.getFechaIngreso() != null) {
             paciente.setFechaIngreso(pacienteDTO.getFechaIngreso());
         }
-        
+
         Paciente guardado = pacienteRepository.save(paciente);
-        
-   
+
         PacienteDTO responseDTO = new PacienteDTO(
                 guardado.getId(),
-    guardado.getNombre(),
-    guardado.getApellidos(),
-    guardado.getDni(),
-    guardado.getGenero(),
-    guardado.getEmail(),
-    guardado.getDireccion(),
-    guardado.getTelefono(),
-    guardado.getGravedadAfeccion(),
-    guardado.getFechaNacimiento(),
-    guardado.getFechaIngreso()        );
+                guardado.getNombre(),
+                guardado.getApellidos(),
+                guardado.getDni(),
+                guardado.getGenero(),
+                guardado.getEmail(),
+                guardado.getDireccion(),
+                guardado.getTelefono(),
+                guardado.getGravedadAfeccion(),
+                guardado.getFechaNacimiento(),
+                guardado.getFechaIngreso());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-
- 
-
-  @GetMapping("listar")
+    @GetMapping("listar")
     public List<PacienteDTO> obtenerPaciente() {
         List<Paciente> pacientes = pacienteRepository.findAll();
         List<PacienteDTO> pacienteDTO = pacientes.stream().map(paciente -> new PacienteDTO(
-             paciente.getId(),
-    paciente.getNombre(),
-    paciente.getApellidos(),
-    paciente.getDni(),
-    paciente.getGenero(),
-    paciente.getEmail(),
-    paciente.getDireccion(),
-    paciente.getTelefono(),
-    paciente.getGravedadAfeccion(),
-    paciente.getFechaNacimiento(),
-    paciente.getFechaIngreso()
+                paciente.getId(),
+                paciente.getNombre(),
+                paciente.getApellidos(),
+                paciente.getDni(),
+                paciente.getGenero(),
+                paciente.getEmail(),
+                paciente.getDireccion(),
+                paciente.getTelefono(),
+                paciente.getGravedadAfeccion(),
+                paciente.getFechaNacimiento(),
+                paciente.getFechaIngreso()
         )).collect(Collectors.toList());
         return pacienteDTO;
     }
 
-
 //Buscar por el id del Paciente
- @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Paciente> buscarPorId(@PathVariable Long id) {
         return pacienteService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
-    
-  @PutMapping("/editar/{id}")
+
+    @PutMapping("/editar/{id}")
     public ResponseEntity<Paciente> actualizarPaciente(
-            @PathVariable Long id, 
+            @PathVariable Long id,
             @RequestBody Paciente paciente) {
         paciente.setId(id);
         try {
@@ -131,9 +129,9 @@ public class PacienteController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
-    }  
-    
-     @DeleteMapping("/delete/{id}")
+    }
+
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> eliminarPaciente(@PathVariable Long id) {
         try {
             pacienteService.eliminarPaciente(id);

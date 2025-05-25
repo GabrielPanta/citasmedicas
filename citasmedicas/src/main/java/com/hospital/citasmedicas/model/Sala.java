@@ -31,6 +31,30 @@ public class Sala {
     
     @Column(nullable = false, unique = true)
     private Integer numeroSala;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getNumeroSala() {
+        return numeroSala;
+    }
+
+    public void setNumeroSala(Integer numeroSala) {
+        this.numeroSala = numeroSala;
+    }
+
+    public List<CitaMedica> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(List<CitaMedica> citas) {
+        this.citas = citas;
+    }
     
     @OneToMany(mappedBy = "sala", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CitaMedica> citas = new ArrayList<>();

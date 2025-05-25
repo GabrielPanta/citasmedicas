@@ -35,8 +35,8 @@ class CitasmedicasApplicationTests {
     @InjectMocks
     private PacienteService pacienteService;
 
-	@BeforeEach
-void setUp() {
+    @BeforeEach
+    void setUp() {
     paciente = new Paciente(
         null,                            
         "Juan",                          

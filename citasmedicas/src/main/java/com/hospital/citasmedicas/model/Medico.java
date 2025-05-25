@@ -23,9 +23,89 @@ import lombok.AllArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "Medico")
 @AllArgsConstructor
+@Table(name = "Medico")
 public class Medico {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public LocalDate getFechaGraduacion() {
+        return fechaGraduacion;
+    }
+
+    public void setFechaGraduacion(LocalDate fechaGraduacion) {
+        this.fechaGraduacion = fechaGraduacion;
+    }
+
+    public LocalDate getFechaIncorporacion() {
+        return fechaIncorporacion;
+    }
+
+    public void setFechaIncorporacion(LocalDate fechaIncorporacion) {
+        this.fechaIncorporacion = fechaIncorporacion;
+    }
+
+    public String getCmp() {
+        return cmp;
+    }
+
+    public void setCmp(String cmp) {
+        this.cmp = cmp;
+    }
+
+    public List<CitaMedica> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(List<CitaMedica> citas) {
+        this.citas = citas;
+    }
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     

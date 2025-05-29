@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - MedicalUTP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c5aa0;
+      --secondary-color: #17a2b8;
+      --accent-color: #28a745;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    .register-container {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .medical-image-section {
+      background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo-1551601651-2a8555f1a136-H3FUPAQn2WKWTnVnSApfevKKhmZMaE.jpeg') center/cover;
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
+      flex: 1;
+    }
+
+    .medical-image-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(44, 90, 160, 0.8), rgba(23, 162, 184, 0.6));
+      animation: pulse-overlay 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-overlay {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.6; }
+    }
+
+    .medical-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .floating-icon {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.3);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-icon:nth-child(1) {
+      top: 15%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-icon:nth-child(2) {
+      top: 50%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .floating-icon:nth-child(3) {
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    .floating-icon:nth-child(4) {
+      top: 30%;
+      left: 50%;
+      animation-delay: 1s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(5deg); }
+      66% { transform: translateY(10px) rotate(-5deg); }
+    }
+
+    .register-form-section {
+      background: white;
+      padding: 0;
+      height: 100vh;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .form-container {
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .brand-logo {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .brand-logo h2 {
+      color: var(--primary-color);
+      font-weight: bold;
+      font-size: 2rem;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 2px solid #e9ecef;
+      padding: 10px 12px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
+    }
+
+    .btn-register {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .login-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .medical-icon-large {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .step {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px;
+      font-weight: bold;
+      color: #6c757d;
+    }
+
+    .step.active {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .step.completed {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .medical-stats {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-item {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      display: block;
+    }
+
+    /* Success View Styles */
+    .success-view {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      color: var(--accent-color);
+      margin-bottom: 2rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-30px); }
+      60% { transform: translateY(-15px); }
+    }
+
+    .info-card {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 5px solid var(--primary-color);
+    }
+
+    .contact-info {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 991.98px) {
+      .register-container {
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .medical-image-section {
+        height: 30vh;
+        min-height: 250px;
+      }
+
+      .register-form-section {
+        height: auto;
+        min-height: 70vh;
+      }
+
+      .form-container {
+        min-height: auto;
+        padding: 1.5rem;
+      }
+
+      body {
+        overflow-y: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="register-container">
+  <!-- Medical Image Section -->
+  <div class="medical-image-section d-none d-lg-block">
+    <div class="floating-elements">
+      <i class="fas fa-heartbeat floating-icon fa-2x"></i>
+      <i class="fas fa-stethoscope floating-icon fa-2x"></i>
+      <i class="fas fa-user-md floating-icon fa-2x"></i>
+      <i class="fas fa-hospital floating-icon fa-2x"></i>
+    </div>
+
+    <div class="medical-content">
+      <div>
+        <i class="fas fa-user-plus medical-icon-large"></i>
+        <h2 class="mb-4">Únete a MedicalUTP</h2>
+        <p class="lead mb-4">
+          Regístrate para acceder a nuestros servicios médicos de excelencia.
+          Tu salud es nuestra prioridad.
+        </p>
+
+        <div class="medical-stats">
+          <div class="row">
+            <div class="col-6 stat-item">
+              <span class="stat-number">100%</span>
+              <small>Seguro</small>
+            </div>
+            <div class="col-6 stat-item">
+              <span class="stat-number">24/7</span>
+              <small>Soporte</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <p><i class="fas fa-shield-alt me-2"></i>Datos protegidos con encriptación SSL</p>
+          <p><i class="fas fa-clock me-2"></i>Proceso de registro en 3 minutos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Form Section -->
+  <div class="register-form-section">
+    <div class="form-container">
+      <!-- Vista de Éxito -->
+      <div id="success-view" class="success-view" style="display: block;">
+        <div class="success-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+
+        <h1>¡Bienvenido, <span th:text="${usuario.nombres}">Nombre Usuario</span>!</h1>
+        <h4 class="text-muted mb-4">Nos alegra que te hayas registrado en MedicalUTP.</h4>
+        <p class="lead">Por favor, revisa tu correo electrónico para activar tu cuenta y empezar a disfrutar de nuestros servicios médicos.</p>
+
+        <div class="info-card">
+          <h5><strong><i class="fas fa-info-circle me-2"></i>Información de Registro</strong></h5>
+          <div class="mt-3">
+            <p><strong>Nombre Completo:</strong> <span th:text="${usuario.nombres}">Nombre</span> <span th:text="${usuario.apellidos}">Apellido</span></p>
+            <p><strong>Correo Electrónico:</strong> <span th:text="${usuario.email}">Correo</span></p>
+            <p><strong>DNI:</strong><span th:text="${usuario.dni}">Número</span></p>
+            <p><strong>Sexo:</strong> <span th:text="${usuario.sexo}">Número</span></p>
+          </div>
+        </div>
+
+        <div class="contact-info">
+          <h5 class="mb-3"><i class="fas fa-phone me-2"></i>Datos de Contacto</h5>
+          <p>Si tienes alguna duda, contáctanos al siguiente número: <strong>+51 98355809</strong></p>
+          <p>O puedes escribirnos a: <strong>medicalutp@gmail.com</strong></p>
+        </div>
+
+        <div class="mt-4">
+          <a href="index.html" class="btn btn-register text-white btn-lg">
+            <i class="fas fa-home me-2"></i>Ir a Inicio
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

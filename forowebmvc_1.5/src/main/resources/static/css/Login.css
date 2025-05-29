@@ -1,0 +1,249 @@
+:root {
+    --primary-color: #2c5aa0;
+    --secondary-color: #17a2b8;
+    --accent-color: #28a745;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+
+.login-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.medical-image-section {
+    background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo-1551601651-2a8555f1a136-H3FUPAQn2WKWTnVnSApfevKKhmZMaE.jpeg') center/cover;
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    flex: 1;
+}
+
+.medical-image-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(44, 90, 160, 0.8), rgba(23, 162, 184, 0.6));
+    animation: pulse-overlay 4s ease-in-out infinite;
+}
+
+@keyframes pulse-overlay {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.6; }
+}
+
+.medical-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.floating-icon {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-icon:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-icon:nth-child(2) {
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.floating-icon:nth-child(3) {
+    bottom: 30%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(5deg); }
+    66% { transform: translateY(10px) rotate(-5deg); }
+}
+
+.login-form-section {
+    background: white;
+    padding: 0;
+    height: 100vh;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    padding: 3rem;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.brand-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.brand-logo h2 {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
+}
+
+.btn-login {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+}
+
+.divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #dee2e6;
+}
+
+.divider span {
+    background: white;
+    padding: 0 1rem;
+    color: #6c757d;
+}
+
+.social-login {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.social-login:hover {
+    border-color: var(--primary-color);
+    background: #f8f9fa;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.medical-stats {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.stat-item {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+}
+
+.medical-icon-large {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .login-container {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .medical-image-section {
+        height: 40vh;
+        min-height: 300px;
+    }
+
+    .login-form-section {
+        height: auto;
+        min-height: 60vh;
+    }
+
+    body {
+        overflow-y: auto;
+    }
+}

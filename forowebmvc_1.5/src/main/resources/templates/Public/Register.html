@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - MedicalUTP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/Register.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="register-container">
+    <!-- Medical Image Section -->
+    <div class="medical-image-section d-none d-lg-block">
+        <div class="floating-elements">
+            <i class="fas fa-heartbeat floating-icon fa-2x"></i>
+            <i class="fas fa-stethoscope floating-icon fa-2x"></i>
+            <i class="fas fa-user-md floating-icon fa-2x"></i>
+            <i class="fas fa-hospital floating-icon fa-2x"></i>
+        </div>
+
+        <div class="medical-content">
+            <div>
+                <i class="fas fa-user-plus medical-icon-large"></i>
+                <h2 class="mb-4">Únete a MedicalUTP</h2>
+                <p class="lead mb-4">
+                    Regístrate para acceder a nuestros servicios médicos de excelencia.
+                    Tu salud es nuestra prioridad.
+                </p>
+
+                <div class="medical-stats">
+                    <div class="row">
+                        <div class="col-6 stat-item">
+                            <span class="stat-number">100%</span>
+                            <small>Seguro</small>
+                        </div>
+                        <div class="col-6 stat-item">
+                            <span class="stat-number">24/7</span>
+                            <small>Soporte</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <p><i class="fas fa-shield-alt me-2"></i>Datos protegidos con encriptación SSL</p>
+                    <p><i class="fas fa-clock me-2"></i>Proceso de registro en 3 minutos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Form Section -->
+    <div class="register-form-section">
+        <div class="form-container">
+            <!-- Formulario de Registro -->
+            <div id="register-form">
+                <div class="brand-logo">
+                    <i class="fas fa-heartbeat text-primary fa-2x mb-2"></i>
+                    <h2>MedicalUTP</h2>
+                    <p class="text-muted">Crear nueva cuenta</p>
+                </div>
+
+                <div class="progress-steps">
+                    <div class="step active">1</div>
+                    <div class="step">2</div>
+                    <div class="step">3</div>
+                </div>
+
+                <form th:action="@{/procesarRegistro}" id="registrationForm" method="post" th:object="${usuario}">
+
+                    <!-- Mostrar mensajes de error -->
+                    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span th:text="${errorMessage}"></span>
+                    </div>
+
+                    <!-- Mostrar mensajes de éxito -->
+                    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <span th:text="${successMessage}"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Nombres</label>
+                            <div class="input-group">
+        <span class="input-group-text bg-light">
+          <i class="fas fa-user text-muted"></i>
+        </span>
+                                <input type="text"
+                                       th:field="*{nombres}"
+                                       id="nombres"
+                                       class="form-control"
+                                       placeholder="Ingrese sus nombres"
+                                       required>
+                            </div>
+                            <div id="errorNombre" class="text-danger" style="font-size:0.85rem"></div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Apellidos</label>
+                            <div class="input-group">
+        <span class="input-group-text bg-light">
+          <i class="fas fa-user text-muted"></i>
+        </span>
+                                <input type="text"
+                                       th:field="*{apellidos}"
+                                       id="apellidos"
+                                       class="form-control"
+                                       placeholder="Ingrese sus apellidos"
+                                       required>
+                            </div>
+                            <div id="errorApellido" class="text-danger" style="font-size:0.85rem"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">DNI</label>
+                            <div class="input-group">
+        <span class="input-group-text bg-light">
+          <i class="fas fa-id-card text-muted"></i>
+        </span>
+                                <input type="text"
+                                       th:field="*{dni}"
+                                       id="dni"
+                                       class="form-control"
+                                       placeholder="12345678"
+                                       maxlength="8"
+                                       pattern="[0-9]{8}"
+                                       title="El DNI debe tener 8 dígitos"
+                                       required>
+                            </div>
+                            <div id="errorDni" class="text-danger" style="font-size:0.85rem"></div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Sexo</label>
+                            <select th:field="*{sexo}"
+                                    id="sexo"
+                                    class="form-control"
+                                    required>
+                                <option value="">Seleccionar sexo</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                                <option value="O">Otro</option>
+                            </select>
+                            <div id="errorSexo" class="text-danger" style="font-size:0.85rem"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email</label>
+                        <div class="input-group">
+      <span class="input-group-text bg-light">
+        <i class="fas fa-envelope text-muted"></i>
+      </span>
+                            <input type="email"
+                                   th:field="*{email}"
+                                   id="email"
+                                   class="form-control"
+                                   placeholder="Ingrese su email"
+                                   required>
+                        </div>
+                        <div id="errorEmail" class="text-danger" style="font-size:0.85rem"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Contraseña</label>
+                            <div class="input-group">
+        <span class="input-group-text bg-light">
+          <i class="fas fa-lock text-muted"></i>
+        </span>
+                                <input type="password"
+                                       th:field="*{password}"
+                                       id="password"
+                                       class="form-control"
+                                       placeholder="Mínimo 8 caracteres"
+                                       minlength="8"
+                                       required>
+                                <span class="input-group-text bg-light" onclick="togglePassword('password')">
+          <i class="fas fa-eye text-muted"></i>
+        </span>
+                            </div>
+                            <div id="errorPassword" class="text-danger" style="font-size:0.85rem"></div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Confirmar Contraseña</label>
+                            <div class="input-group">
+        <span class="input-group-text bg-light">
+          <i class="fas fa-lock text-muted"></i>
+        </span>
+                                <input type="password"
+                                       id="confirmPassword"
+                                       class="form-control"
+                                       placeholder="Repetir contraseña"
+                                       required>
+                                <span class="input-group-text bg-light" onclick="togglePassword('confirmPassword')">
+          <i class="fas fa-eye text-muted"></i>
+        </span>
+                            </div>
+                            <div id="errorConfirmPassword" class="text-danger" style="font-size:0.85rem"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                Acepto los <a href="#" class="text-decoration-none">términos y condiciones</a>
+                                y la <a href="#" class="text-decoration-none">política de privacidad</a>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-register text-white w-100 mb-3">
+                        <i class="fas fa-user-plus me-2"></i>Registrarse
+                    </button>
+
+                    <div class="login-link text-center">
+                        <p class="mb-0">¿Ya tienes una cuenta?
+                            <a th:href="@{/login}" class="text-decoration-none">Iniciar sesión</a>
+                        </p>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Vista de Éxito -->
+            <div id="success-view" class="success-view">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+
+                <h1>¡Bienvenido, <span id="welcomeName">Nombre Usuario</span>!</h1>
+                <h4 class="text-muted mb-4">Nos alegra que te hayas registrado en MedicalUTP.</h4>
+                <p class="lead">Por favor, revisa tu correo electrónico para activar tu cuenta y empezar a disfrutar de nuestros servicios médicos.</p>
+
+                <div class="info-card">
+                    <h5><strong><i class="fas fa-info-circle me-2"></i>Información de Registro</strong></h5>
+                    <div class="mt-3">
+                        <p><strong>Nombre Completo:</strong> <span id="fullName">Nombre Apellido</span></p>
+                        <p><strong>Correo Electrónico:</strong> <span id="userEmail">correo@ejemplo.com</span></p>
+                        <p><strong>DNI:</strong> <span id="userDni">12345678</span></p>
+                        <p><strong>Sexo:</strong> <span id="userSexo">Masculino</span></p>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <h5 class="mb-3"><i class="fas fa-phone me-2"></i>Datos de Contacto</h5>
+                    <p>Si tienes alguna duda, contáctanos al siguiente número: <strong>+51 98355809</strong></p>
+                    <p>O puedes escribirnos a: <strong>medicalutp@gmail.com</strong></p>
+                </div>
+
+                <div class="mt-4">
+                    <a href="index.html" class="btn btn-register text-white btn-lg">
+                        <i class="fas fa-home me-2"></i>Ir a Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Función para mostrar/ocultar contraseña
+    function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = input.nextElementSibling.querySelector('i');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+
+    // Validación en tiempo real del DNI
+    document.getElementById('dni').addEventListener('input', function(e) {
+        const dni = e.target.value;
+        const errorDiv = document.getElementById('errorDni');
+
+        // Solo permitir números
+        e.target.value = dni.replace(/[^0-9]/g, '');
+
+        if (dni.length > 0 && dni.length < 8) {
+            errorDiv.textContent = 'El DNI debe tener 8 dígitos';
+        } else {
+            errorDiv.textContent = '';
+        }
+    });
+
+    // Validación de confirmación de contraseña
+    document.getElementById('confirmPassword').addEventListener('input', function(e) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = e.target.value;
+        const errorDiv = document.getElementById('errorConfirmPassword');
+
+        if (confirmPassword !== password) {
+            errorDiv.textContent = 'Las contraseñas no coinciden';
+        } else {
+            errorDiv.textContent = '';
+        }
+    });
+
+    // Validación del formulario antes de enviar
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const dni = document.getElementById('dni').value;
+
+        let hasErrors = false;
+
+        // Validar DNI
+        if (dni.length !== 8 || !/^\d{8}$/.test(dni)) {
+            document.getElementById('errorDni').textContent = 'El DNI debe tener exactamente 8 dígitos';
+            hasErrors = true;
+        }
+
+        // Validar contraseñas
+        if (password !== confirmPassword) {
+            document.getElementById('errorConfirmPassword').textContent = 'Las contraseñas no coinciden';
+            hasErrors = true;
+        }
+
+        if (password.length < 8) {
+            document.getElementById('errorPassword').textContent = 'La contraseña debe tener al menos 8 caracteres';
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
+            e.preventDefault();
+        }
+    });
+</script>
+</body>
+</html>

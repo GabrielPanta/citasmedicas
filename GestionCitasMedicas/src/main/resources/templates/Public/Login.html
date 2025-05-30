@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - MedicalUTP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/Login.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container-fluid login-container">
+    <div class="row w-100">
+        <!-- Medical Image Section -->
+        <div class="col-lg-7 medical-image-section d-none d-lg-block">
+            <a th:href="@{/}" class="btn btn-primary" style="z-index: 10; position: relative;">Volver al Inicio</a>
+
+            <div class="floating-elements">
+                <i class="fas fa-heartbeat floating-icon fa-2x"></i>
+                <i class="fas fa-stethoscope floating-icon fa-2x"></i>
+                <i class="fas fa-user-md floating-icon fa-2x"></i>
+            </div>
+
+            <div class="medical-content d-flex flex-column justify-content-center h-100">
+                <div>
+                    <i class="fas fa-hospital medical-icon-large"></i>
+                    <h2 class="mb-4">Excelencia Médica</h2>
+                    <p class="lead mb-4">
+                        Tecnología de vanguardia al servicio de tu salud.
+                        Nuestro equipo de especialistas está comprometido con brindarte
+                        la mejor atención médica.
+                    </p>
+
+                    <div class="medical-stats">
+                        <div class="row">
+                            <div class="col-4 stat-item">
+                                <span class="stat-number">24/7</span>
+                                <small>Atención</small>
+                            </div>
+                            <div class="col-4 stat-item">
+                                <span class="stat-number">500+</span>
+                                <small>Pacientes</small>
+                            </div>
+                            <div class="col-4 stat-item">
+                                <span class="stat-number">50+</span>
+                                <small>Especialistas</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Form Section -->
+        <div class="col-lg-5 login-form-section d-flex align-items-center">
+            <div class="form-container w-100">
+
+                <div class="brand-logo">
+                    <i class="fas fa-heartbeat text-primary fa-2x mb-3"></i>
+                    <h2>MedicalUTP</h2>
+                    <p class="text-muted">Bienvenido de vuelta</p>
+                </div>
+
+                <!-- Mostrar mensajes de error -->
+                <div th:if="${param.error}" class="alert alert-danger">
+                    <center><p th:text="${param.error}"></p></center>
+                </div>
+
+                <!-- Mensaje de logout exitoso -->
+                <div th:if="${param.logout}" class="alert alert-info">
+                    Ha cerrado sesión exitosamente.
+                </div>
+
+                <!-- Mensaje de registro exitoso (opcional) -->
+                <div th:if="${param.registered}" class="alert alert-success">
+                    Registro exitoso. Revisa tu correo para activar tu cuenta.
+                </div>
+
+                <form method="post" th:action="@{/login}">
+                    <!-- Campo para DNI o Email -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">DNI o Correo Electrónico</label>
+                        <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                        <i class="fas fa-user text-muted"></i>
+                    </span>
+                            <input type="text"
+                                   class="form-control border-start-0"
+                                   name="username"
+                                   id="username"
+                                   placeholder="Ingrese su DNI o correo electrónico"
+                                   required>
+                        </div>
+                        <div class="form-text text-muted">
+                            <small>Puedes usar tu DNI (8 dígitos) o tu correo electrónico</small>
+                        </div>
+                    </div>
+
+                    <!-- Campo de contraseña -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Contraseña</label>
+                        <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                        <i class="fas fa-lock text-muted"></i>
+                    </span>
+                            <input type="password"
+                                   class="form-control border-start-0"
+                                   name="password"
+                                   id="password"
+                                   placeholder="Ingrese su contraseña"
+                                   required
+                                   maxlength="22">
+                            <span class="input-group-text bg-light border-start-0 cursor-pointer"
+                                  onclick="togglePassword()">
+                        <i class="fas fa-eye text-muted" id="toggleIcon"></i>
+                    </span>
+                        </div>
+                    </div>
+
+                    <!-- Recordarme y olvidó contraseña -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember">
+                            <label class="form-check-label" for="remember">
+                                Recordarme
+                            </label>
+                        </div>
+                        <a th:href="@{/Verificacion}" class="text-decoration-none">
+                            ¿Se ha olvidado su contraseña?
+                        </a>
+                    </div>
+
+                    <!-- Botón de inicio de sesión -->
+                    <button type="submit" class="btn btn-login text-white w-100 mb-3">
+                        <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>o</span>
+                    </div>
+
+                    <!-- Botón de Google (opcional - puedes removerlo si no lo usas) -->
+                    <button type="button" class="btn social-login w-100 mb-3" disabled>
+                        <i class="fab fa-google text-danger me-2"></i>
+                        Continuar con Google
+                    </button>
+
+                    <!-- Link de registro -->
+                    <div class="register-link">
+                        <p class="mb-0">¿Nuevo en MedicalUTP?
+                            <a th:href="@{/register}" class="text-primary text-decoration-none">
+                                Regístrate aquí
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para cuenta inactiva (opcional - se puede manejar con alerts) -->
+        <div class="modal fade" id="inactiveAccountModal" tabindex="-1" aria-labelledby="inactiveAccountModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="inactiveAccountModalLabel">Cuenta Inactiva</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tu cuenta no está activada. Por favor, revisa tu correo electrónico para activarla.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <script>
+            // Función para mostrar/ocultar contraseña
+            function togglePassword() {
+                const passwordInput = document.getElementById('password');
+                const toggleIcon = document.getElementById('toggleIcon');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.classList.remove('fa-eye');
+                    toggleIcon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.classList.remove('fa-eye-slash');
+                    toggleIcon.classList.add('fa-eye');
+                }
+            }
+
+            // Mostrar modal si hay error de cuenta inactiva
+            document.addEventListener('DOMContentLoaded', function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const error = urlParams.get('error');
+
+                if (error && error.includes('cuenta no está activada')) {
+                    const modal = new bootstrap.Modal(document.getElementById('inactiveAccountModal'));
+                    modal.show();
+                }
+            });
+        </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
